@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Forms</title>
+  </head>
+  <body>
+    <h1>Formulário de Reclamação</h1>
+
+    <form>
+      <fieldset class="dados-pessoais">
+        <legend>Dados Pessoais</legend>
+        <div>
+          <label for="nome">Nome: </label>
+          <input type="text" id="nome" placeholder="Nome" autofocus required />
+        </div>
+
+        <div>
+          <label for="nascimento">Data de nascimento:</label>
+          <input type="date" name="nascimento" id="nascimento" required />
+        </div>
+
+        <div>
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="exemplo@email.com"
+            required
+          />
+        </div>
+
+        <fieldset class="genero">
+          <legend>Gênero</legend>
+
+          <div>
+            <input
+              type="radio"
+              id="genero-m"
+              name="genero"
+              value="masculino"
+              checked
+            />
+            <label for="genero-m">Masculino</label>
+          </div>
+
+          <div>
+            <input type="radio" id="genero-f" name="genero" value="feminino" />
+            <label for="genero-f">Feminino</label>
+          </div>
+
+          <div>
+            <input
+              type="radio"
+              id="genero-nao"
+              name="genero"
+              value="prefiro_nao_informar"
+            />
+            <label for="genero-nao">Prefiro não informar</label>
+          </div>
+        </fieldset>
+
+        <br />
+        <br />
+
+        <fieldset class="endereco">
+          <legend>Endereço</legend>
+          <div>
+            <label for="rua">Rua:</label>
+            <input type="text" id="rua" name="rua" required />
+          </div>
+
+          <div>
+            <label for="numero">Número:</label>
+            <input type="text" id="numero" name="numero" required />
+          </div>
+
+          <div>
+            <label for="bairro">Bairro:</label>
+            <input type="text" id="bairro" name="bairro" required />
+          </div>
+
+          <div>
+            <label for="cep">CEP:</label>
+            <input
+              type="text"
+              id="cep"
+              name="cep"
+              pattern="[0-9]{5}-?[0-9]{3}"
+              title="Use o formato 00000-000"
+              placeholder="00000-000"
+              required
+            />
+          </div>
+        </fieldset>
+
+        <br /><br />
+
+        <fieldset>
+          <legend>Possiveis Problemas</legend>
+          <label>
+            <input type="checkbox" name="corte" />
+            Interrupção inesperada de energia
+          </label>
+
+          <br />
+
+          <label>
+            <input type="checkbox" name="oscilacao" />
+            Oscilação de tensão
+          </label>
+
+          <br />
+
+          <label>
+            <input type="checkbox" name="queda" />
+            Queda recorrente de energia
+          </label>
+
+          <br />
+
+          <label>
+            <input type="checkbox" name="atrasoReparo" />
+            Atraso no atendimento ou reparo
+          </label>
+
+          <br />
+
+          <label>
+            <input type="checkbox" name="faturaErrada" />
+            Fatura com valor incorreto
+          </label>
+
+          <br />
+
+          <label>
+            <input type="checkbox" name="medidor" />
+            Problema no medidor
+          </label>
+
+          <br />
+
+          <label>
+            <input type="checkbox" name="outros" />
+            Outro tipo de problema
+          </label>
+        </fieldset>
+
+        <br /><br />
+
+        <label for="informarcoesAdicionais">Informações adicionais:</label>
+
+        <textarea
+          id="informacoesAdicionais"
+          placeholder="Informações adicionais (Opcional)"
+          rows="4"
+          cols="40"
+        ></textarea>
+
+        <button type="button" onclick="enviar()">Enviar</button>
+      </fieldset>
+      <script>
+        function enviar() {
+          const problemas = Array.from(
+            document.querySelectorAll("input[type='checkbox']:checked")
+          ).map((c) => c.name);
+
+          const dados = {
+            nome: document.getElementById("nome").value,
+            nascimento: document.getElementById("nascimento").value,
+            genero:
+              document.querySelector("input[name='genero']:checked")?.value ||
+              "",
+            email: document.getElementById("email").value,
+            rua: document.getElementById("rua").value,
+            numero: document.getElementById("numero").value,
+            bairro: document.getElementById("bairro").value,
+            cep: document.getElementById("cep").value,
+            problemas,
+            infos: document.getElementById("informacoesAdicionais").value,
+          };
+
+          console.log(dados);
+        }
+      </script>
+    </form>
+  </body>
+</html>
